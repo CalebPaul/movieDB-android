@@ -1,5 +1,6 @@
-package com.epicodus.movieapp;
+package com.epicodus.movieapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.epicodus.movieapp.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == mSearchActorButton) {
             String actor = mSearchActorEditTextView.getText().toString();
             Log.d(TAG, actor);
+            Intent intent = new Intent(MainActivity.this, ActorActivity.class);
+            intent.putExtra("actor", actor);
+            startActivity(intent);
         }
     }
 
