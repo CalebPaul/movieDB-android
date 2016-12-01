@@ -12,6 +12,6 @@ public class Constants {
     //Second Call
     public static final String MOVIEDB_ACTOR_MOVIES_BASE_URL = "https://api.themoviedb.org/3/person";
     public static final String APPEND_TO_RESPONSE_QUERY_PARAMETER = "append_to_response";
-    public static final String MOVIE_CREDITS = "movie_credits";
-    public static final String IMAGES = "images";
+    public static final String MOVIE_CREDITS_AND_IMAGES = "movie_credits,images";
+//    public static final String IMAGES = "images";
 }

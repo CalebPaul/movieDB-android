@@ -66,8 +66,7 @@ public class MovieService {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MOVIEDB_ACTOR_MOVIES_BASE_URL).newBuilder();
         urlBuilder.addPathSegment(actorId);
         urlBuilder.addQueryParameter(Constants.API_KEY_QUERY_PARAMETER, Constants.API_KEY);
-        urlBuilder.addQueryParameter(Constants.APPEND_TO_RESPONSE_QUERY_PARAMETER, Constants.MOVIE_CREDITS);
-        urlBuilder.addQueryParameter(Constants.APPEND_TO_RESPONSE_QUERY_PARAMETER, Constants.IMAGES);
+        urlBuilder.addQueryParameter(Constants.APPEND_TO_RESPONSE_QUERY_PARAMETER, Constants.MOVIE_CREDITS_AND_IMAGES);
         String url = urlBuilder.build().toString();
 
         Log.v(TAG, "Movie URL: " + url);
