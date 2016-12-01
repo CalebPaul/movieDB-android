@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v == mSearchActorButton) {
-            String actor = mSearchActorEditTextView.getText().toString();
-            Log.d(TAG, actor);
+            String actorString = mSearchActorEditTextView.getText().toString();
+            Log.d(TAG, actorString);
             Intent intent = new Intent(MainActivity.this, ActorActivity.class);
-            intent.putExtra("actor", actor);
+            intent.putExtra("actor", actorString);
             startActivity(intent);
         }
     }
