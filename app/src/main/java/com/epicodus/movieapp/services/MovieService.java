@@ -31,7 +31,7 @@ public class MovieService {
         urlBuilder.addQueryParameter(Constants.QUERY_PARAMETER, actorString);
         String url = urlBuilder.build().toString();
 
-        Log.v(TAG, "URL: " + url);
+        Log.v(TAG, "Actor Id URL: " + url);
         Request request = new Request.Builder().url(url).build();
 
         Call call = client.newCall(request);
@@ -60,7 +60,21 @@ public class MovieService {
         return actorId;
     }
 
-    public static void findActorMovies(){
+    public static void findActorMovies(String actorId, Callback callback){
+        OkHttpClient client = new OkHttpClient.Builder().build();
 
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.MOVIEDB_ACTOR_MOVIES_BASE_URL).newBuilder();
+        urlBuilder.addPathSegment(actorId);
+        urlBuilder.addQueryParameter(Constants.API_KEY_QUERY_PARAMETER, Constants.API_KEY);
+        urlBuilder.addQueryParameter(Constants.APPEND_TO_RESPONSE_QUERY_PARAMETER, Constants.MOVIE_CREDITS);
+        urlBuilder.addQueryParameter(Constants.APPEND_TO_RESPONSE_QUERY_PARAMETER, Constants.IMAGES);
+        String url = urlBuilder.build().toString();
+
+        Log.v(TAG, "Movie URL: " + url);
+
+        Request request = new Request.Builder().url(url).build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
     }
 }

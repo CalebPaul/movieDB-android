@@ -46,8 +46,25 @@ public class ActorActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.v(TAG, "Successful Response");
                 mActorId = movieService.processActorId(response);
+                getActorMovies(mActorId);
+            }
+        });
+    }
+
+    private void getActorMovies(String actorId) {
+        final MovieService movieService = new MovieService();
+
+        movieService.findActorMovies(actorId, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.v(TAG, "Successful Response for Actors Movies yay!");
+
             }
         });
     }
