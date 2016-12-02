@@ -12,7 +12,6 @@ import com.epicodus.movieapp.services.MovieService;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.RunnableFuture;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,7 +24,7 @@ public class ActorActivity extends AppCompatActivity {
     public static final String TAG = ActorActivity.class.getSimpleName();
     public String mActorId;
 
-    @Bind(R.id.actorNameTextView) TextView mActorNameTextView;
+    @Bind(R.id.movieTitleTextView) TextView mActorNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
