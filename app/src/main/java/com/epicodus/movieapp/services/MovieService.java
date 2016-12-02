@@ -3,12 +3,14 @@ package com.epicodus.movieapp.services;
 import android.util.Log;
 
 import com.epicodus.movieapp.Constants;
+import com.epicodus.movieapp.models.Actor;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -76,4 +78,38 @@ public class MovieService {
         Call call = client.newCall(request);
         call.enqueue(callback);
     }
+
+    public ArrayList<Actor> processActorMovies (Response response) {
+        ArrayList<Actor> actorMovies = new ArrayList<>();
+        try {
+            String jsonData = response.body().string();
+
+            if (response.isSuccessful()) {
+                JSONObject actorMoviesObject = new JSONObject(jsonData);
+                JSONObject resultsJSON = actorMoviesObject.getJSONObject("movie_credits");
+                JSONArray resultsArrayJSON = actorMoviesObject.getJSONObject("movie_credits").getJSONArray("cast");
+
+                for (int i=0; i < resultsArrayJSON.length(); i++) {
+                    String character = resultsArrayJSON.getJSONObject(i).getString("character");
+                    String title = resultsArrayJSON.getJSONObject(i).getString("title");
+                    String posterPath = resultsArrayJSON.getJSONObject(i).getString("poster_path");
+                    String releaseDate = resultsArrayJSON.getJSONObject(i).getString("release_date");
+
+                    Actor actor = new Actor(character, title, posterPath, releaseDate);
+                    actorMovies.add(actor);
+                }
+            for (Object object : actorMovies) {
+                Log.v(TAG, "Actor movies: " + object);
+            }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+        e.printStackTrace();
+        }
+
+        return actorMovies;
+    }
+
+
 }

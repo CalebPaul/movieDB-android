@@ -10,11 +10,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.epicodus.movieapp.R;
+import com.epicodus.movieapp.models.Actor;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public ArrayList<Actor> mActor = new ArrayList<>();
+
     @Bind(R.id.titleTextView) TextView mTitleTextView;
     @Bind(R.id.searchActorEditTextView) EditText mSearchActorEditTextView;
     @Bind(R.id.searchActorButton) Button mSearchActorButton;
