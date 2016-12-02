@@ -3,10 +3,13 @@ package com.epicodus.movieapp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.epicodus.movieapp.R;
+import com.epicodus.movieapp.adapters.ActorListAdapter;
 import com.epicodus.movieapp.models.Actor;
 import com.epicodus.movieapp.services.MovieService;
 
@@ -20,11 +23,12 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class ActorActivity extends AppCompatActivity {
-    public ArrayList<Actor> mActor = new ArrayList<>();
+    public ArrayList<Actor> mActors = new ArrayList<>();
     public static final String TAG = ActorActivity.class.getSimpleName();
     public String mActorId;
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    private ActorListAdapter mAdapter;
 
-    @Bind(R.id.movieTitleTextView) TextView mActorNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,6 @@ public class ActorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String actor = intent.getStringExtra("actor");
-        mActorNameTextView.setText("Actor's name is: " + actor);
 
         getActorId(actor);
     }
@@ -67,12 +70,17 @@ public class ActorActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.v(TAG, "Successful Response for Actors Movies yay!");
-                mActor = movieService.processActorMovies(response);
+                mActors = movieService.processActorMovies(response);
 
                 ActorActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        mAdapter = new ActorListAdapter(getApplicationContext(), mActors);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager =
+                            new LinearLayoutManager(ActorActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
                     }
                 });
             }
